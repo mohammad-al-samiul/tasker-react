@@ -41,6 +41,23 @@ export default function Taskboard() {
     setTaskToUpdate(task);
   };
 
+  const handleDeleteTask = (taskId) => {
+    const restTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(restTasks);
+  };
+
+  const handleAllTaskDelete = () => {
+    tasks.length = 0;
+    setTasks([...tasks]);
+  };
+
+  const handleFavorite = (taskId) => {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+    const newTasks = [...tasks];
+    newTasks[taskIndex].isFavorite = !newTasks[taskIndex].isFavorite;
+    setTasks(newTasks);
+  };
+
   const handleCloseModal = () => {
     setIsOpenModal(false);
     setTaskToUpdate(null);
@@ -59,7 +76,10 @@ export default function Taskboard() {
         <div className="container lg:px-20">
           <SearchBox />
           <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
-            <TaskAction onTaskAddClick={() => setIsOpenModal(true)} />
+            <TaskAction
+              onAllTaskDelete={handleAllTaskDelete}
+              onTaskAddClick={() => setIsOpenModal(true)}
+            />
             <div className="overflow-auto">
               <table className="table-fixed overflow-auto xl:w-full">
                 <thead>
@@ -89,7 +109,13 @@ export default function Taskboard() {
                 </thead>
                 <tbody>
                   {tasks.map((task, i) => (
-                    <TaskList key={i} task={task} onEdit={handleEditTask} />
+                    <TaskList
+                      key={i}
+                      task={task}
+                      onEdit={handleEditTask}
+                      onDelete={handleDeleteTask}
+                      onFav={handleFavorite}
+                    />
                   ))}
                 </tbody>
               </table>
