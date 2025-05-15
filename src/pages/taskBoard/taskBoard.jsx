@@ -58,6 +58,13 @@ export default function Taskboard() {
     setTasks(newTasks);
   };
 
+  const handleSearch = (searchTerm) => {
+    const filtered = tasks.filter((task) =>
+      task.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setTasks([...filtered]);
+  };
+
   const handleCloseModal = () => {
     setIsOpenModal(false);
     setTaskToUpdate(null);
@@ -74,7 +81,7 @@ export default function Taskboard() {
           />
         )}
         <div className="container lg:px-20">
-          <SearchBox />
+          <SearchBox onSearch={handleSearch} />
           <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
             <TaskAction
               onAllTaskDelete={handleAllTaskDelete}
