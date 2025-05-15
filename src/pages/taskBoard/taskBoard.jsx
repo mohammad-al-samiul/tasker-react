@@ -4,6 +4,7 @@ import TaskAction from "./taskAction";
 
 import TaskList from "./taskList";
 import AddTaskForm from "./addTaskForm";
+import NoTaskFound from "./noTaskFound";
 
 export default function Taskboard() {
   const defaultTask = {
@@ -115,15 +116,19 @@ export default function Taskboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {tasks.map((task, i) => (
-                    <TaskList
-                      key={i}
-                      task={task}
-                      onEdit={handleEditTask}
-                      onDelete={handleDeleteTask}
-                      onFav={handleFavorite}
-                    />
-                  ))}
+                  {tasks.length ? (
+                    tasks.map((task, i) => (
+                      <TaskList
+                        key={i}
+                        task={task}
+                        onEdit={handleEditTask}
+                        onDelete={handleDeleteTask}
+                        onFav={handleFavorite}
+                      />
+                    ))
+                  ) : (
+                    <NoTaskFound />
+                  )}
                 </tbody>
               </table>
             </div>
