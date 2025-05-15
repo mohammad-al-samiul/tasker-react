@@ -41,11 +41,20 @@ export default function Taskboard() {
     setTaskToUpdate(task);
   };
 
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+    setTaskToUpdate(null);
+  };
+
   return (
     <>
       <section className="mb-20" id="tasks">
         {isOpenModal && (
-          <AddTaskForm onSave={handleAddEditTask} taskToUpdate={taskToUpdate} />
+          <AddTaskForm
+            onSave={handleAddEditTask}
+            taskToUpdate={taskToUpdate}
+            onCloseModal={handleCloseModal}
+          />
         )}
         <div className="container lg:px-20">
           <SearchBox />

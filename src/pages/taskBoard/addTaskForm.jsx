@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function AddTaskForm({ onSave, taskToUpdate }) {
+export default function AddTaskForm({ onSave, taskToUpdate, onCloseModal }) {
   const [task, setTask] = useState(
     taskToUpdate || {
       id: crypto.randomUUID(),
@@ -99,7 +99,10 @@ export default function AddTaskForm({ onSave, taskToUpdate }) {
         </div>
 
         <div className="mt-16 flex justify-center lg:mt-20">
-          <button className="rounded bg-red-600 px-4 py-2 text-white transition-all hover:opacity-80">
+          <button
+            onClick={onCloseModal}
+            className="rounded bg-red-600 px-4 py-2 text-white transition-all hover:opacity-80"
+          >
             Close
           </button>
           <button
